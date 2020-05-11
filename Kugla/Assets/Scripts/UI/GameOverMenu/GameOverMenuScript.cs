@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenuScript : MonoBehaviour
 {
-    void PlayAgain()
+    public void PlayAgain()
     {
         SceneManager.LoadScene("GameScene");
     }
 
-    void MainMenu()
+    public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
