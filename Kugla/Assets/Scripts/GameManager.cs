@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<Score>().GameOn = false;
         if (!gameEnded) {
             gameEnded = true;
-            Debug.Log("GEJM OVER BIC");
             Invoke("Restart", 2f);
         }
     }
