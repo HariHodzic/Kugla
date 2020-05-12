@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class KuglaMovement : MonoBehaviour
@@ -12,6 +13,9 @@ public class KuglaMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody kugla;
     bool LeftSide=true;
+
+    private GameObject Terrain;
+
     void GoLeft(Rigidbody rb)
     {
         rb.AddForce(ForwardSpeed ,0, SideSpeed,ForceMode.VelocityChange);
@@ -24,6 +28,7 @@ public class KuglaMovement : MonoBehaviour
     {
         Rigidbody kugla = GetComponent<Rigidbody>();
         GoLeft(kugla);
+        Terrain=GameObject.FindGameObjectWithTag(Constants.TerrainTag);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -48,7 +53,11 @@ public class KuglaMovement : MonoBehaviour
         if (kugla.transform.position.y < 0)
         {
             FindObjectOfType<GameManager>().GameOver();
-            
+        }
+
+        if (kugla.transform.position.x%20<1)
+        {
+            Terrain.transform.localScale+=new Vector3(20,0,0);
         }
             
     }
