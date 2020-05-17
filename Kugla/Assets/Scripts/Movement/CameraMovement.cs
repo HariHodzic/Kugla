@@ -4,12 +4,15 @@ namespace Assets.Scripts.Movement
 {
     public class CameraMovement : MonoBehaviour
     {
+        #pragma warning disable 0649
         [SerializeField]
         private Transform kugla;
 
         [SerializeField]
         private float smoothSpeed=10.0f;
-    
+        #pragma warning restore 0649
+
+
         void FixedUpdate()
         {
             Vector3 desiredPosition = new Vector3(kugla.position.x-3,7,3.2f);

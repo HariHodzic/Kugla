@@ -1,18 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Score : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField]
-    private Transform kugla;
-    [SerializeField]
-    private Text ScoreValue;
-    public bool GameOn = true;
-    void Update()
+    public class Score : MonoBehaviour
     {
-        if(GameOn)
-        ScoreValue.text = kugla.position.x.ToString("0");
+#pragma warning disable 0649
+
+        [SerializeField]
+        private Transform kugla;
+
+        [SerializeField]
+        private Text ScoreValue;
+
+        public bool GameOn = true;
+
+#pragma warning restore 0649
+
+        private void Update()
+        {
+            if (GameOn)
+                ScoreValue.text = kugla.position.x.ToString("0");
+        }
     }
 }
