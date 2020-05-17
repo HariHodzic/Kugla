@@ -1,21 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+namespace Assets.Scripts
 {
-    bool gameEnded = false;
-   public void GameOver()
+    public class GameManager : MonoBehaviour
     {
+        private bool gameEnded = false;
 
-        FindObjectOfType<Score>().GameOn = false;
-        if (!gameEnded) {
-            gameEnded = true;
-            Invoke("Restart", 2f);
+        public void GameOver()
+        {
+            FindObjectOfType<Score>().GameOn = false;
+            if (!gameEnded)
+            {
+                gameEnded = true;
+                Invoke("Restart", 2f);
+            }
         }
-    }
 
-    private void Restart    ()
-    {
-        SceneManager.LoadScene("GameOverScene");
+        private void Restart()
+        {
+            SceneManager.LoadScene("GameOverScene");
+        }
     }
 }
