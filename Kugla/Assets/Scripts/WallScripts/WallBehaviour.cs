@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using Assets.Scripts.Instantiate;
+using Unity.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.WallScripts
@@ -13,6 +14,7 @@ namespace Assets.Scripts.WallScripts
             if (collision.gameObject.CompareTag(Constants.KuglaTag))
             {
                 Destroy(this.gameObject);
+                InstantiateWall.WallExists = false;
             }
         }
     }

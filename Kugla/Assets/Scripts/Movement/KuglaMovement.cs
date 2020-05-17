@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.UIElements;
-using Slider = Assets.Scripts.UI.OptionsMenu.Slider;
 
 namespace Assets.Scripts.Movement
 {
     public class KuglaMovement : MonoBehaviour
     {
         private PlayerPrefs PlayerPrefs;
+        private GameManager GameManager;
 
         [SerializeField]
         private Rigidbody kugla;
@@ -17,38 +17,39 @@ namespace Assets.Scripts.Movement
 
         private Slider SpeedSlider;
 
+        private Vector3 LastKuglaPosition;
+
         private void GoLeft(Rigidbody rb)
         {
-            rb.AddForce(PlayerPrefs.GetFloat("ForwardSpeed"), 0, PlayerPrefs.GetFloat("SideSpeed"), ForceMode.VelocityChange);
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(2 * PlayerPrefs.GetFloat("ForwardSpeed"), 0, 2 * PlayerPrefs.GetFloat("SideSpeed"), ForceMode.VelocityChange);
         }
 
         private void GoRight(Rigidbody rb)
         {
-            rb.AddForce(PlayerPrefs.GetFloat("ForwardSpeed"), 0, -PlayerPrefs.GetFloat("SideSpeed"), ForceMode.VelocityChange);
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(2 * PlayerPrefs.GetFloat("ForwardSpeed"), 0, -2 * (PlayerPrefs.GetFloat("SideSpeed")), ForceMode.VelocityChange);
         }
 
         private void Start()
         {
             var msg = $"Side speed -> {PlayerPrefs.GetFloat("SideSpeed")}";
+            var msgg = $"Forward speed -> {PlayerPrefs.GetFloat("ForwardSpeed")}";
+
             Debug.Log(msg);
-            //SpeedSlider = GameObject.Find("ForwardSpeedSlider").GetComponent<Slider>();
-            PlayerPrefs.SetFloat("ForwardSpeed", 3);
-            //PlayerPrefs.SetFloat("SideSpeed", 3);
-            PlayerPrefs.Save();
+            Debug.Log(msgg);
 
-            //SpeedSlider.value = 3;
-
-            Rigidbody kugla = GetComponent<Rigidbody>();
             GoLeft(kugla);
             Terrain = GameObject.FindGameObjectWithTag(Constants.TerrainTag);
+            GameManager = FindObjectOfType<GameManager>();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            string wallTag = Constants.WallTag;
-            if (collision.collider.tag == wallTag)
+            if (collision.collider.tag == Constants.WallTag)
             {
-                Rigidbody kugla = GetComponent<Rigidbody>();
                 if (LeftSide)
                     GoRight(kugla);
                 else
@@ -59,14 +60,14 @@ namespace Assets.Scripts.Movement
 
         private void FixedUpdate()
         {
-            var kugla = GetComponent<Rigidbody>();
-            //if (LeftSide)
-            //    GoLeft(kugla);
-            //else
-            //    GoRight(kugla);
+            if (LastKuglaPosition == transform.position)
+                GameManager.GameOver();
+
+            LastKuglaPosition = transform.position;
+
             if (kugla.transform.position.y < 0)
             {
-                FindObjectOfType<GameManager>().GameOver();
+                GameManager.GameOver();
             }
 
             if (kugla.transform.position.x % 20 < 1)
@@ -77,13 +78,13 @@ namespace Assets.Scripts.Movement
 
         public void AdjustSideSpeed(float speed)
         {
-            PlayerPrefs.SetFloat("SideSpeed",speed);
+            PlayerPrefs.SetFloat("SideSpeed", speed);
             PlayerPrefs.Save();
         }
 
         public void AdjustForwardSpeed(float speed)
         {
-            PlayerPrefs.SetFloat("ForwardSpeed",speed);
+            PlayerPrefs.SetFloat("ForwardSpeed", speed);
             PlayerPrefs.Save();
         }
     }

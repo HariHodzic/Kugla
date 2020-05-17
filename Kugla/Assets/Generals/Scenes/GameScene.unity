@@ -737,6 +737,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1471565352571276552, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276555, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_Name
@@ -747,6 +752,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Kugla
       objectReference: {fileID: 0}
+    - target: {fileID: 1471565352571276556, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471565352571276556, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471565352571276556, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276557, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: ForwardSpeed
@@ -755,17 +775,17 @@ PrefabInstance:
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.667
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.41
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.2
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
