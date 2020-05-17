@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverMenuScript : MonoBehaviour
+namespace Assets.Scripts.UI.GameOverMenu
 {
-    public void PlayAgain()
+    public class GameOverMenuScript : MonoBehaviour
     {
-        SceneManager.LoadScene("GameScene");
-    }
+        public void PlayAgain()
+        {
+            SceneManager.LoadScene("GameScene");
+        }
 
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
+        public void MainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
-
 }

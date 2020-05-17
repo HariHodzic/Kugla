@@ -121,6 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dead76918d521564e8c7e588597a2000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SideSpeed: 6.4
-  ForwardSpeed: 4
-  kugla: {fileID: 0}
+  kugla: {fileID: 1471565352571276556}

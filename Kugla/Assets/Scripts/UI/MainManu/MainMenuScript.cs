@@ -1,12 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class MainMenuScript : MonoBehaviour
+namespace Assets.Scripts.UI.MainManu
 {
-    public void Play()
+    public class MainMenuScript : MonoBehaviour
     {
-        SceneManager.LoadScene("GameScene");
+        public void Play()
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+
+        public void Options()
+        {
+            SceneManager.LoadScene("OptionsMenu");
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Terrain
+  - Kugla
   layers:
   - Default
   - TransparentFX

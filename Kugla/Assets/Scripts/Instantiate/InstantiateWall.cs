@@ -1,20 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class InstantiateWall : MonoBehaviour
+namespace Assets.Scripts.Instantiate
 {
-    [SerializeField]
-    private GameObject wall;
-    private void Update()
+    public class InstantiateWall : MonoBehaviour
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        [SerializeField]
+        private GameObject BasicWall;
+
+        private bool WallExists = false;
+
+        private void FixedUpdate()
         {
-            Vector3 fingerPos = Input.GetTouch(0).position;
-            fingerPos.z = 10f;
-            Vector3 touchPos = Camera.main.ScreenToWorldPoint(fingerPos);
-            touchPos.y = 1f;
-            Instantiate(wall, touchPos, Quaternion.identity);
+            //if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 fingerPos = Input.mousePosition;
+                fingerPos.z = 10f;
+                //Vector3 touchPos = Camera.main.ScreenToWorldPoint(fingerPos);
+                var touchPos = Input.mousePosition;
+                touchPos.y = 1f;
+                var ray=Camera.main.ScreenPointToRay(Input.mousePosition);
+     
+                if(Physics.Raycast(ray,out RaycastHit hit))
+                {
+         
+                    if(Input.GetKey(KeyCode.Mouse0))
+                    {
+                       Instantiate(BasicWall,new Vector3(hit.point.x,hit.point.y+1,hit.point.z), Quaternion.identity);
+             
+                    }
+         
+                }
+                //Instantiate(BasicWall, touchPos, Quaternion.identity);
+                WallExists = true;
+            }
         }
     }
 }

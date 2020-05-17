@@ -1,18 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+namespace Assets.Scripts.Movement
 {
-    [SerializeField]
-    private Transform kugla;
-    [SerializeField]
-    private float smoothSpeed=10.0f;
-    
-    void FixedUpdate()
+    public class CameraMovement : MonoBehaviour
     {
-        Vector3 desiredPosition = new Vector3(kugla.position.x-1,13,0);
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        transform.position = smoothedPosition;
+        [SerializeField]
+        private Transform kugla;
+
+        [SerializeField]
+        private float smoothSpeed=10.0f;
+    
+        void FixedUpdate()
+        {
+            Vector3 desiredPosition = new Vector3(kugla.position.x-3,7,3.2f);
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+            transform.position = smoothedPosition;
+        }
     }
 }
