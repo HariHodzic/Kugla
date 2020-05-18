@@ -1,19 +1,27 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.MainManu
 {
     public class MainMenuScript : MonoBehaviour
     {
+        [SerializeField]
+        private TextMeshProUGUI BestScore;
+
+        private void Start()
+        {
+            BestScore.text = ScoreManagement.BestScore.ToString();
+        }
+
         public void Play()
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene(Constants.GameScene);
         }
 
         public void Options()
         {
-            SceneManager.LoadScene("OptionsMenu");
+            SceneManager.LoadScene(Constants.OptionsMenuScene);
         }
 
         public void Quit()

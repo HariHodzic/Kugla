@@ -12,7 +12,7 @@ namespace Assets.Scripts
 
         public void GameOver()
         {
-            FindObjectOfType<Score>().GameOn = false;
+            FindObjectOfType<ScoreManagement>().GameOn = false;
             if (!gameEnded)
             {
                 gameEnded = true;
