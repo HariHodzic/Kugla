@@ -370,7 +370,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kugla: {fileID: 1242911885}
   ScoreValue: {fileID: 577835336}
-  GameOn: 1
 --- !u!1 &728554728
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +414,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 64
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -446,7 +445,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728554728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -611,6 +610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicWall: {fileID: 9136103924533360654, guid: d6ee0215c6948dd40a99744870d721aa,
     type: 3}
+  Terrain: {fileID: 0}
 --- !u!4 &1972167454
 Transform:
   m_ObjectHideFlags: 0
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &2048385079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,12 +780,12 @@ PrefabInstance:
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.48
+      value: 0.834
       objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.55
+      value: 3.522
       objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}

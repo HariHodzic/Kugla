@@ -19,29 +19,30 @@ namespace Assets.Scripts.Movement
 
         private Vector3 LastKuglaPosition;
 
+        private float ForwardSpeed;
+        private float SideSpeed;
+
         private void GoLeft(Rigidbody rb)
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.AddForce(2 * PlayerPrefs.GetFloat("ForwardSpeed"), 0, 2 * PlayerPrefs.GetFloat("SideSpeed"), ForceMode.VelocityChange);
+            rb.AddForce(2 * ForwardSpeed, 0, 2 * SideSpeed, ForceMode.VelocityChange);
         }
 
         private void GoRight(Rigidbody rb)
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.AddForce(2 * PlayerPrefs.GetFloat("ForwardSpeed"), 0, -2 * (PlayerPrefs.GetFloat("SideSpeed")), ForceMode.VelocityChange);
+            rb.AddForce(2 * ForwardSpeed, 0, -2 * SideSpeed, ForceMode.VelocityChange);
         }
 
         private void Start()
         {
-            var msg = $"Side speed -> {PlayerPrefs.GetFloat("SideSpeed")}";
-            var msgg = $"Forward speed -> {PlayerPrefs.GetFloat("ForwardSpeed")}";
+            SideSpeed = PlayerPrefs.GetFloat("SideSpeed");
+            ForwardSpeed = PlayerPrefs.GetFloat("ForwardSpeed");
 
-            Debug.Log(msg);
-            Debug.Log(msgg);
+            kugla.AddForce(2 * ForwardSpeed, 0, 5, ForceMode.VelocityChange);
 
-            GoLeft(kugla);
             Terrain = GameObject.FindGameObjectWithTag(Constants.TerrainTag);
             GameManager = FindObjectOfType<GameManager>();
         }
