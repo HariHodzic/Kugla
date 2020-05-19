@@ -15,7 +15,7 @@ namespace Assets.Scripts.Movement
 
         void FixedUpdate()
         {
-            Vector3 desiredPosition = new Vector3(kugla.position.x-3,7,3.2f);
+            Vector3 desiredPosition = new Vector3(kugla.position.x-7,10,3.2f);
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             transform.position = smoothedPosition;
         }
