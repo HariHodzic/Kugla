@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Entities;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
+using Assets.Scripts.Helpers;
+using Assets.Scripts.Instantiate;
+using Assets.Scripts.Movement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,34 +17,44 @@ namespace Assets.Scripts.UI
         [SerializeField]
         private Text ScoreValue;
 
+        private int Score;
+
+        [SerializeField]
+        private Text WallsRemainedValue;
+
         public static long BestScore { get; private set; } = 0;
         public static long LastScore { get; private set; } = 0;
         public static bool ReachedNewBestScore { get; private set; }
 
-        public bool GameOn { get; set; } = true;
-
+        private int LastXaxis = 0;
 #pragma warning restore 0649
 
         private void Start()
         {
-            ScoreValue.color = new Color(45, 46, 45);
             ReachedNewBestScore = false;
+            Score = 0;
         }
 
         private void Update()
         {
-            if (GameOn)
-                ScoreValue.text = kugla.position.x.ToString("0");
+            if (!GameManager.GameOn)
+                return;
+            if (LastXaxis != (int)kugla.position.x)
+            {
+                LastXaxis = (int)kugla.position.x;
+
+                Score += (int)(KuglaMovement.SideSpeed / 2 * (InstantiateWall.SuperWallEnabled ? 3 : 1));
+            }
+            ScoreValue.text = Score.ToString();
+            WallsRemainedValue.text = InstantiateWall.WallsRemained.ToString();
         }
 
         private void OnDisable()
         {
             var score = new Score
             {
-                ScoreAmount = int.Parse(ScoreValue.text)
+                ScoreAmount = Score
             };
-
-            var allRecScores = GetAllResults();
 
             if (score.ScoreAmount > LastScore)
             {
@@ -53,25 +63,7 @@ namespace Assets.Scripts.UI
             }
             LastScore = score.ScoreAmount;
 
-            allRecScores.Add(score);
-            allRecScores = allRecScores.OrderByDescending(x => x.ScoreAmount).ToList();
-
-            var scoresToSave = JsonConvert.SerializeObject(allRecScores);
-            PlayerPrefs.SetString(Constants.PlayerResults, scoresToSave);
-            PlayerPrefs.Save();
-        }
-
-        private List<Score> GetAllResults()
-        {
-            var allRecordedScoresJson = PlayerPrefs.GetString(Constants.PlayerResults);
-            var allRecScores = new List<Score>();
-
-            if (!string.IsNullOrWhiteSpace(allRecordedScoresJson) && allRecordedScoresJson != "{}")
-            {
-                allRecScores = JsonConvert.DeserializeObject<List<Score>>(allRecordedScoresJson);
-            }
-
-            return allRecScores;
+            DataManager.AppendList(score, Constants.PlayerResults, nameof(Assets.Scripts.Entities.Score.ScoreAmount), OrderBy.DESC);
         }
     }
 }

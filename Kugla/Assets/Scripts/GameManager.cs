@@ -8,11 +8,12 @@ namespace Assets.Scripts
     {
 #pragma warning disable 0649
         private bool gameEnded = false;
+        public static bool GameOn = true;
 #pragma warning restore 0649
 
         public void GameOver()
         {
-            FindObjectOfType<ScoreManagement>().GameOn = false;
+            GameOn = false;
             if (!gameEnded)
             {
                 gameEnded = true;
