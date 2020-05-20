@@ -6,11 +6,16 @@ namespace Assets.Scripts.UI.GameOverMenu
 {
     public class GameOverMenuScript : MonoBehaviour
     {
+#pragma warning disable 0649
         [SerializeField]
         private TextMeshProUGUI BestScore;
 
         [SerializeField]
         private TextMeshProUGUI LastScore;
+
+        [SerializeField]
+        private AudioSource GameOverAudio;
+#pragma warning restore 0649
 
         private void Start()
         {
@@ -33,6 +38,7 @@ namespace Assets.Scripts.UI.GameOverMenu
         public void PlayAgain()
         {
             SceneManager.LoadScene(Constants.GameScene);
+            GameManager.GameOn = true;
         }
 
         public void MainMenu()

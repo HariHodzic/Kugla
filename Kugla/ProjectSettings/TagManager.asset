@@ -7,6 +7,9 @@ TagManager:
   - Wall
   - Terrain
   - Kugla
+  - WallInstantiateZoneRight
+  - WallInstantiateZoneLeft
+  - SuperWall
   layers:
   - Default
   - TransparentFX
