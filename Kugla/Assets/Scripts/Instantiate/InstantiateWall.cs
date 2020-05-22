@@ -7,13 +7,30 @@ namespace Assets.Scripts.Instantiate
     {
 #pragma warning disable 0649
 
+        //BasicWall
         [SerializeField]
         private GameObject BasicWall;
 
+        private int basicWallsCounter = 0;
+
+        //SuperWall
         [SerializeField]
         private GameObject SuperWall;
+
         [SerializeField]
         private AudioSource SuperWallStartAudio;
+
+        [SerializeField]
+        private GameObject SuperWallGoalBar;
+
+        [SerializeField]
+        private Image SuperWallGoalBarContainer;
+
+        private float SuperWallGoaldHeight;
+
+        public static bool SuperWallEnabled { get; private set; }
+        private int SuperWallsRemained = 0;
+        private float superWallTargetTime = 5.0f;
 
         [SerializeField]
         private Terrain Terrain;
@@ -26,18 +43,12 @@ namespace Assets.Scripts.Instantiate
 
         public static bool WallExists { get; set; } = false;
 
-
         private Vector3 LastWallPoint = Vector3.zero;
 
         public static int WallsRemained { get; private set; }
         private int WallsRemainedTemp;
 
         public static void WallsDecrement() => --WallsRemained;
-
-        public static bool SuperWallEnabled { get; private set; }
-        private int SuperWallsRemained = 0;
-        private float superWallTargetTime = 5.0f;
-        private int basicWallsCounter = 0;
 
         //LEFT WALL DISTANCE CONDITION
         //((Math.Abs(LastWallPoint.z - point.z) > 1.5) || point.x - LastWallPoint.x > 3)
@@ -55,6 +66,8 @@ namespace Assets.Scripts.Instantiate
             SuperWallEnabled = false;
             WallsRemainedLabel = GameObject.Find(Constants.WallsRemainedLabel).GetComponent<Text>();
             WallsRemainedValue = GameObject.Find(Constants.WallsRemainedValue).GetComponent<Text>();
+            SuperWallGoaldHeight = SuperWallGoalBar.transform.localScale.y;
+            SuperWallGoalBar.transform.localScale -= new Vector3(0, SuperWallGoalBar.transform.localScale.y, 0);
         }
 
         private void Update()
@@ -63,10 +76,9 @@ namespace Assets.Scripts.Instantiate
 
             if (WallsRemained > 0)
             {
+                //    if (Input.GetMouseButtonDown(0))
                 if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    //if (Input.GetMouseButtonDown(0))
-                    //{
                     //Mobile touch
                     Vector3 fingerPos = Input.GetTouch(0).position;
 
@@ -84,22 +96,31 @@ namespace Assets.Scripts.Instantiate
                             Quaternion.identity);
 
                         WallInstantiateAudio.Play();
-                        basicWallsCounter++;
+                        if (!SuperWallEnabled)
+                        {
+                            basicWallsCounter++;
+                            SuperWallGoalBar.transform.localScale += new Vector3(0, SuperWallGoaldHeight / 5, 0);
+                        }
+
                         LastWallPoint = hit.point;
 
-                        if (basicWallsCounter == 3 && superWallTargetTime >= 0)
+                        if (basicWallsCounter == 5 && superWallTargetTime >= 0)
                         {
                             SuperWallEnabled = true;
                             SuperWallsRemained = 5;
+                            basicWallsCounter = 0;
 
                             //Added 5 new basic walls on every super wall enabling
-                            WallsRemainedTemp = WallsRemained+5;
+                            WallsRemainedTemp = WallsRemained + 5;
                             WallsRemained = SuperWallsRemained;
-                            WallsRemainedLabel.color = Color.yellow;
                             WallsRemainedLabel.alignment = TextAnchor.MiddleLeft;
                             WallsRemainedValue.alignment = TextAnchor.MiddleCenter;
-                            WallsRemainedValue.color = Color.yellow;
+                            WallsRemainedValue.font.material.color = Constants.DarkGoldColor;
+                            WallsRemainedLabel.font.material.color = Constants.DarkGoldColor;
                             WallsRemainedLabel.text = "Super walls:";
+
+                            SuperWallGoalBarContainer.enabled = false;
+                            SuperWallGoalBar.transform.localScale -= new Vector3(0, SuperWallGoalBar.transform.localScale.y, 0);
                             SuperWallStartAudio.Play();
                         }
 
@@ -109,11 +130,12 @@ namespace Assets.Scripts.Instantiate
                             SuperWallEnabled = false;
                             superWallTargetTime = 5.0f;
                             basicWallsCounter = 0;
-                            WallsRemainedLabel.color = Color.black;
                             WallsRemainedLabel.alignment = TextAnchor.MiddleCenter;
                             WallsRemainedValue.alignment = TextAnchor.MiddleLeft;
-                            WallsRemainedValue.color = Color.black;
+                            WallsRemainedValue.font.material.color = Constants.FineBlackColor;
+                            WallsRemainedLabel.font.material.color = Constants.FineBlackColor;
                             WallsRemainedLabel.text = "Walls";
+                            SuperWallGoalBarContainer.enabled = true;
                         }
                     }
                 }

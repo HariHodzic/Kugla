@@ -1,4 +1,8 @@
-﻿namespace Assets.Scripts
+﻿using UnityEngine;
+using UnityEngine.UI;
+using Color = UnityEngine.Color;
+
+namespace Assets.Scripts
 {
     public class Constants
     {
@@ -23,5 +27,11 @@
         public const string GameOverScene = "GameOverScene";
         public const string OptionsMenuScene = "OptionsMenu";
         public const string GameScene = "GameScene";
+
+
+        //Colors
+        public static Color32 FineBlackColor = new Color32(40,40,40,205);
+        public static Color32 DarkGoldColor = new Color32(207,172,17,227);
+
     }
 }
