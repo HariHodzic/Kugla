@@ -15,6 +15,7 @@ namespace Assets.Scripts
         public const string WallInstantiateZoneRightTag = "WallInstantiateZoneRight";
         public const string WallInstantiateZoneLeftTag = "WallInstantiateZoneLeft";
         public const string WallsRemainedLabel = "WallsRemainedLabel";
+        public const string MobileModeTextLabel = "MobileModeText";
         public const string WallsRemainedValue = "WallsRemainedValue";
 
 
