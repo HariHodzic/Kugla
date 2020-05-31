@@ -10,6 +10,7 @@ TagManager:
   - WallInstantiateZoneRight
   - WallInstantiateZoneLeft
   - SuperWall
+  - Obstacle
   layers:
   - Default
   - TransparentFX
