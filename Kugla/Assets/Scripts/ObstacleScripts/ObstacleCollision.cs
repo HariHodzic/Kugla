@@ -8,8 +8,12 @@ public class ObstacleCollision : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag==Constants.KuglaTag)
+        if (collision.gameObject.tag == Constants.KuglaTag)
+        {
             BasicPool.Instance.AddToPool(gameObject);
+            //Todo: Create function for wall counter
+        }
+
     }
 
 }

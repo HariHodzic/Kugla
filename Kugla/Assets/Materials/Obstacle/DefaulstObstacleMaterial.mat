@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DefaultKuglaMaterial
+  m_Name: DefaulstObstacleMaterial
   m_Shader: {fileID: 22, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _SUNDISK_HIGH_QUALITY
   m_LightmapFlags: 4
@@ -112,7 +112,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Rotation: 0
-    - _Shininess: 0.19
+    - _Shininess: 0.41
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -122,10 +122,10 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.27450982, g: 0.15686275, b: 0, a: 1}
+    - _Color: {r: 0.083971165, g: 0.4811321, b: 0.17853332, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 0.369, g: 0.349, b: 0.341, a: 1}
-    - _ReflectColor: {r: 0.8980392, g: 0.46776295, b: 0.09019609, a: 0.5}
+    - _ReflectColor: {r: 0.33641866, g: 0.6792453, b: 0.3664162, a: 0.5}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _SpecColor: {r: 1, g: 0.9411765, b: 0.84313726, a: 1}
+    - _SpecColor: {r: 0.8217382, g: 0.6853863, b: 0.9622642, a: 1}
     - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
