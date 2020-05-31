@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.UI.MainManu;
+using UnityEngine;
 using UnityEngine.UI;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Assets.Scripts.Instantiate
 {
@@ -68,6 +70,8 @@ namespace Assets.Scripts.Instantiate
             WallsRemainedValue = GameObject.Find(Constants.WallsRemainedValue).GetComponent<Text>();
             SuperWallGoaldHeight = SuperWallGoalBar.transform.localScale.y;
             SuperWallGoalBar.transform.localScale -= new Vector3(0, SuperWallGoalBar.transform.localScale.y, 0);
+
+            
         }
 
         private void Update()
@@ -76,13 +80,21 @@ namespace Assets.Scripts.Instantiate
 
             if (WallsRemained > 0)
             {
-                //    if (Input.GetMouseButtonDown(0))
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                if (MainMenuScript.MobileMode == 0
+                    ? Input.GetMouseButtonDown(0)
+                    : Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    //Mobile touch
-                    Vector3 fingerPos = Input.GetTouch(0).position;
+                    Ray ray;
 
-                    var ray = Camera.main.ScreenPointToRay(fingerPos);
+                    if (MainMenuScript.MobileMode == 1)
+                    {
+                        var fingerPos = Input.GetTouch(0).position;
+                        ray = Camera.main.ScreenPointToRay(fingerPos);
+                    }
+                    else
+                    {
+                        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    }
 
                     if (Physics.Raycast(ray, out RaycastHit hit))
                     {
