@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Assets.Scripts.Score;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

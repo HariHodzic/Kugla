@@ -1,38 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicPool : MonoBehaviour
+namespace Assets.Scripts.ObstacleScripts.Pool
 {
-    [SerializeField]
-    private GameObject prefab;
-    private Queue<GameObject> availableObjects = new Queue<GameObject>();
-    public static BasicPool Instance { get; private set; }
-    private void Awake()
+    public class BasicPool : MonoBehaviour
     {
-        Instance = this;
-        GrowPool();
-    }
-    public GameObject GetFromPool()
-    {
-        if (availableObjects.Count == 0)
-            GrowPool();
-        var instance = availableObjects.Dequeue();
-        instance.SetActive(true);
-        return instance;
-    }
-    private void GrowPool()
-    {
-        for (int i = 0; i < 5; i++)
+        [SerializeField]
+        private GameObject prefab;
+
+        [SerializeField]
+        private GameObject SuperObstaclePrefab;
+
+        private Queue<GameObject> availableObjects = new Queue<GameObject>();
+        public static BasicPool Instance { get; private set; }
+
+        private void Awake()
         {
-            var instanceToAdd = Instantiate(prefab);
+            Instance = this;
+            GrowPool();
+        }
+
+        public GameObject GetFromPool(bool superObstacle = false)
+        {
+            if (availableObjects.Count == 0)
+                GrowPool(superObstacle);
+            else if (superObstacle)
+            {
+                GrowPool(true);
+            }
+            var instance = availableObjects.Dequeue();
+            instance.SetActive(true);
+            return instance;
+        }
+
+        private void GrowPool(bool superObstacle = false)
+        {
+            var instanceToAdd = Instantiate(superObstacle ? SuperObstaclePrefab : prefab);
             instanceToAdd.transform.SetParent(transform);
+            if (superObstacle)
+            {
+                availableObjects.Clear();
+            }
             AddToPool(instanceToAdd);
         }
-    }
-    public void AddToPool(GameObject instance)
-    {
-        instance.SetActive(false);
-        availableObjects.Enqueue(instance);
+
+        public void AddToPool(GameObject instance)
+        {
+            instance.SetActive(false);
+            availableObjects.Enqueue(instance);
+        }
     }
 }

@@ -1,19 +1,21 @@
-﻿using Assets.Scripts;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.ObstacleScripts.Pool;
 using UnityEngine;
 
-public class ObstacleCollision : MonoBehaviour
+namespace Assets.Scripts.ObstacleScripts
 {
-    
-    private void OnCollisionEnter(Collision collision)
+    public class ObstacleCollision : MonoBehaviour
     {
-        if (collision.gameObject.tag == Constants.KuglaTag)
+        [SerializeField]
+        private AudioSource SuperObstacleAudio;
+    
+        private void OnCollisionEnter(Collision collision)
         {
-            BasicPool.Instance.AddToPool(gameObject);
-            //Todo: Create function for wall counter
+            if (collision.gameObject.tag == Constants.KuglaTag)
+            {
+                BasicPool.Instance.AddToPool(gameObject);
+            }
+
         }
 
     }
-
 }
