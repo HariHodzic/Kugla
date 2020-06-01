@@ -7,21 +7,21 @@ namespace Assets.Scripts
     public class GameManager : MonoBehaviour
     {
 #pragma warning disable 0649
-        private bool gameEnded = false;
+        private static bool gameEnded = false;
         public static bool GameOn = true;
 #pragma warning restore 0649
 
-        public void GameOver()
+        public static void GameOver()
         {
             GameOn = false;
             if (!gameEnded)
             {
                 gameEnded = true;
-                Invoke("Restart", 2f);
+                Restart();
             }
         }
 
-        private void Restart()
+        private static void Restart()
         {
             SceneManager.LoadScene("GameOverScene");
         }

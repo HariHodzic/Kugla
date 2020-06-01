@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Instantiate;
-using Unity.Collections;
+﻿using Unity.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.WallScripts

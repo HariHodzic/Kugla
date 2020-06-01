@@ -17,6 +17,9 @@ namespace Assets.Scripts
         public const string WallsRemainedLabel = "WallsRemainedLabel";
         public const string MobileModeTextLabel = "MobileModeText";
         public const string WallsRemainedValue = "WallsRemainedValue";
+        public const string ObstacleTag = "Obstacle";
+        public const string SuperObstacleTag = "SuperObstacle";
+
 
 
 

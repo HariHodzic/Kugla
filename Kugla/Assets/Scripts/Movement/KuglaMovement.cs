@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Instantiate;
+﻿using Assets.Scripts.Score;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 
 namespace Assets.Scripts.Movement
 {
-    public class KuglaMovement : MonoBehaviour
+    public class KuglaMovement : ScoreData
     {
 #pragma warning disable 0649
         private PlayerPrefs PlayerPrefs;
@@ -17,6 +17,9 @@ namespace Assets.Scripts.Movement
 
         [SerializeField]
         private AudioSource BallBounceAudio;
+
+        [SerializeField]
+        private AudioSource SuperObstacleCollisionAudio;
 
         [SerializeField]
         private GameObject Terrain;
@@ -34,7 +37,11 @@ namespace Assets.Scripts.Movement
         public static float ForwardSpeed { get; private set; }
         public static float SideSpeed { get; private set; }
 
+        private float tempTime = 2f;
+
+        public static int BasicBounces { get; private set; }
 #pragma warning restore 0649
+
 
         private void GoLeft(Rigidbody rb)
         {
@@ -52,6 +59,7 @@ namespace Assets.Scripts.Movement
 
         private void Start()
         {
+            BasicBounces = 0;
             SideSpeed = PlayerPrefs.GetFloat("SideSpeed");
             ForwardSpeed = PlayerPrefs.GetFloat("ForwardSpeed");
 
@@ -61,7 +69,8 @@ namespace Assets.Scripts.Movement
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.tag == Constants.WallTag || collision.collider.tag==Constants.SuperWallTag)
+            var basicWallCondition = collision.collider.tag == Constants.WallTag;
+            if (basicWallCondition || collision.collider.tag == Constants.SuperWallTag)
             {
                 if (LeftSide)
                     GoRight(kugla);
@@ -70,8 +79,26 @@ namespace Assets.Scripts.Movement
                 LeftSide = !LeftSide;
 
                 BallBounceAudio.Play();
-                if (InstantiateWall.WallsRemained == 0)
+                if (BasicWallsRemained == 0)
                     GameManager.GameOver();
+
+                if (basicWallCondition)
+                    BasicBounces++;
+                if (BasicBounces == 6)
+                    BasicBounces = 1;
+            }
+
+            if (collision.collider.tag == Constants.SuperObstacleTag)
+            {
+                SuperObstacleCollisionAudio.Play();
+                int superWallsToAdd = 3 - Level;
+
+                SuperWallsRemained += superWallsToAdd < 1 ? 1 : superWallsToAdd;
+            }
+            else if (collision.collider.tag == Constants.ObstacleTag)
+            {
+                int wallsToAdd = 4 - Level;
+                BasicWallsRemained += wallsToAdd < 1 ? 1 : wallsToAdd;
             }
         }
 
@@ -86,12 +113,13 @@ namespace Assets.Scripts.Movement
             if (kugla.transform.position.y < 0)
                 GameManager.GameOver();
 
-            if (kugla.transform.position.x % 20 < 1)
+            if (kugla.transform.position.x % 10 < 1 && Time.time - tempTime > 3f)
             {
-                var vectorToAdd = new Vector3(20, 0, 0);
-                Terrain.transform.localScale += vectorToAdd;
-                WallInstantiateZoneLeft.transform.localScale += vectorToAdd;
-                WallInstantiateZoneRight.transform.localScale += vectorToAdd;
+                tempTime = Time.time;
+                var vectorToAdd = new Vector3(10, 0, 0);
+                Terrain.transform.position += vectorToAdd;
+                WallInstantiateZoneLeft.transform.position += vectorToAdd;
+                WallInstantiateZoneRight.transform.position += vectorToAdd;
             }
         }
 
