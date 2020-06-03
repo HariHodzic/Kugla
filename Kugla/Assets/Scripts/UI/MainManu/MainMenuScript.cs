@@ -32,6 +32,13 @@ namespace Assets.Scripts.UI.MainManu
                 PlayerPrefs.SetInt("MobileMode",0);
             }
             MobileModeText.text = MobileMode == 0 ? "OFF" : "ON";
+
+            if(!PlayerPrefs.HasKey("SideSpeed"))
+                PlayerPrefs.SetFloat("SideSpeed",4);
+            if(!PlayerPrefs.HasKey("ForwardSpeed"))
+                PlayerPrefs.SetFloat("ForwardSpeed",4);
+
+            PlayerPrefs.Save();
         }
 
         public void Play()

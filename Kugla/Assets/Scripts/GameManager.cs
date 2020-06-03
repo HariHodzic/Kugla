@@ -7,10 +7,15 @@ namespace Assets.Scripts
     public class GameManager : MonoBehaviour
     {
 #pragma warning disable 0649
-        private static bool gameEnded = false;
-        public static bool GameOn = true;
+        private static bool gameEnded;
+        public static bool GameOn;
 #pragma warning restore 0649
 
+        private void Start()
+        {
+            GameOn = true;
+            gameEnded = false;
+        }
         public static void GameOver()
         {
             GameOn = false;

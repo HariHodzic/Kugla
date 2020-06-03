@@ -9,31 +9,21 @@ namespace Assets.Scripts.UI.GameOverMenu
     {
 #pragma warning disable 0649
         [SerializeField]
-        private TextMeshProUGUI BestScore;
-
-        [SerializeField]
         private TextMeshProUGUI LastScore;
 
         [SerializeField]
         private AudioSource GameOverAudio;
+
+        private TextMeshProUGUI LastScoreLabel;
+
 #pragma warning restore 0649
 
         private void Start()
         {
-            BestScore.text = ScoreManagement.BestScore.ToString();
             LastScore.text = ScoreManagement.LastScore.ToString();
 
-            if (ScoreManagement.ReachedNewBestScore)
-            {
-                var bestScoreLabel = GameObject.Find("BestScoreLabel").GetComponent<TextMeshProUGUI>();
-                bestScoreLabel.enabled = false;
-                BestScore.enabled = false;
-
-                var lastScoreLabel = GameObject.Find("ScoreLabel").GetComponent<TextMeshProUGUI>();
-                lastScoreLabel.text = "Your new best score";
-                LastScore.transform.position += new Vector3(0, 70);
-                lastScoreLabel.transform.position += new Vector3(0, 70);
-            }
+            LastScoreLabel = GameObject.Find(Constants.GameOverScoreLabel).GetComponent<TextMeshProUGUI>();
+            LastScoreLabel.text = ScoreManagement.ReachedNewBestScore ? "Your new best score" : "Your score was";
         }
 
         public void PlayAgain()
