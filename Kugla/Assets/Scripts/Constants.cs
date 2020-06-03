@@ -19,6 +19,8 @@ namespace Assets.Scripts
         public const string WallsRemainedValue = "WallsRemainedValue";
         public const string ObstacleTag = "Obstacle";
         public const string SuperObstacleTag = "SuperObstacle";
+        public const string GameOverScoreLabel = "GameOverScoreLabel";
+        public const string GameOverScore = "GameOverScore";
 
 
 

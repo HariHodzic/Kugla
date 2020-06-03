@@ -581,6 +581,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611506878}
   m_CullTransparentMesh: 0
+--- !u!1 &692868076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 692868078}
+  - component: {fileID: 692868077}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &692868077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692868076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5061025e8a13baf4cb1fd1fb65603be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &692868078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692868076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 774.99335, y: 502.24133, z: -243.98969}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &713725872
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +652,7 @@ RectTransform:
   m_GameObject: {fileID: 713725872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.016566126, y: 0.10162617, z: 0.03}
+  m_LocalScale: {x: 0.010773614, y: 0.06486799, z: 0.03}
   m_Children:
   - {fileID: 1475598043}
   m_Father: {fileID: 2048385081}
@@ -617,7 +660,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -206, y: 42}
+  m_AnchoredPosition: {x: -107.4, y: 156.4}
   m_SizeDelta: {x: 4007.98, y: 1569.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &713725874
@@ -791,7 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8113208, g: 0.6735595, b: 0.06505875, a: 0.8901961}
+  m_Color: {r: 0.8117647, g: 0.43958074, b: 0.06666667, a: 0.8901961}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -822,7 +865,7 @@ RectTransform:
   m_GameObject: {fileID: 747798054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0193877, y: 11.595821, z: 0.69844}
+  m_LocalScale: {x: 1.0829974, y: 11.595821, z: 0.69844}
   m_Children: []
   m_Father: {fileID: 1151911095}
   m_RootOrder: 0
@@ -995,7 +1038,7 @@ RectTransform:
   m_GameObject: {fileID: 1151911094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.08602066, z: 1}
+  m_LocalScale: {x: 0.87514, y: 0.08602066, z: 1}
   m_Children:
   - {fileID: 747798057}
   m_Father: {fileID: 1475598043}
@@ -1262,7 +1305,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10
+  m_Text: 20
 --- !u!222 &1834974664
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1304,9 +1347,6 @@ MonoBehaviour:
     type: 3}
   SuperWall: {fileID: 7073721651539020673, guid: 02f0b971617fda945a8d6a2fe8763ca9,
     type: 3}
-  SuperWallStartAudio: {fileID: 857179142}
-  SuperWallGoalBar: {fileID: 1151911094}
-  SuperWallGoalBarContainer: {fileID: 1475598044}
   Terrain: {fileID: 728554730}
   WallInstantiateAudio: {fileID: 591101151}
 --- !u!4 &1972167454
@@ -1598,6 +1638,26 @@ PrefabInstance:
       propertyPath: SuperObstacleCollisionAudio
       value: 
       objectReference: {fileID: 3091393663383211619}
+    - target: {fileID: 1471565352571276557, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: SuperWallGoalBar
+      value: 
+      objectReference: {fileID: 1475598042}
+    - target: {fileID: 1471565352571276557, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: SuperWallGoalBarContainer
+      value: 
+      objectReference: {fileID: 747798055}
+    - target: {fileID: 1471565352571276557, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: SuperWallStartAudio
+      value: 
+      objectReference: {fileID: 857179142}
+    - target: {fileID: 1471565352571276557, guid: 9015412e11ce7874fa780e83c0853613,
+        type: 3}
+      propertyPath: SuperWallGoalBarMeter
+      value: 
+      objectReference: {fileID: 1151911094}
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1611,7 +1671,7 @@ PrefabInstance:
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.195
+      value: 3.34
       objectReference: {fileID: 0}
     - target: {fileID: 1471565352571276559, guid: 9015412e11ce7874fa780e83c0853613,
         type: 3}

@@ -17,20 +17,8 @@ namespace Assets.Scripts.UI.OptionsMenu
 
         private void Start()
         {
-            var sideSpeed = PlayerPrefs.GetFloat("SideSpeed");
-            var forwardSpeed = PlayerPrefs.GetFloat("ForwardSpeed");
-
-            var hasSideSpeed = PlayerPrefs.HasKey("SideSpeed");
-            var hasForwardSpeed = PlayerPrefs.HasKey("ForwardSpeed");
-            SideSpeedSliderUI.value = hasSideSpeed?sideSpeed:3;
-            ForwardSpeedSliderUI.value = hasForwardSpeed?forwardSpeed:3;
-
-            if(!hasSideSpeed)
-                PlayerPrefs.SetFloat("SideSpeed",3);
-            if(!hasForwardSpeed)
-                PlayerPrefs.SetFloat("ForwardSpeed",3);
-
-            PlayerPrefs.Save();
+            SideSpeedSliderUI.value = PlayerPrefs.HasKey("SideSpeed")?PlayerPrefs.GetFloat("SideSpeed"):4;
+            ForwardSpeedSliderUI.value = PlayerPrefs.HasKey("ForwardSpeed")?PlayerPrefs.GetFloat("ForwardSpeed"):4;
         }
 
         public void MainMenu()

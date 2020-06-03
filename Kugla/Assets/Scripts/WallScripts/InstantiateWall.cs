@@ -2,7 +2,6 @@
 using Assets.Scripts.Score;
 using Assets.Scripts.UI.MainManu;
 using UnityEngine;
-using UnityEngine.UI;
 using Vector3 = UnityEngine.Vector3;
 
 namespace Assets.Scripts.WallScripts
@@ -13,38 +12,14 @@ namespace Assets.Scripts.WallScripts
 #pragma warning disable 0649
 
         //BasicWall
-        [SerializeField]
-        private GameObject BasicWall;
-
+        [SerializeField] private GameObject BasicWall;
 
         //SuperWall
-        [SerializeField]
-        private GameObject SuperWall;
+        [SerializeField] private GameObject SuperWall;
 
-        [SerializeField]
-        private AudioSource SuperWallStartAudio;
+        [SerializeField] private Terrain Terrain;
 
-        [SerializeField]
-        private GameObject SuperWallGoalBar;
-
-        [SerializeField]
-        private Image SuperWallGoalBarContainer;
-
-        private float SuperWallGoalBarHeight;
-
-        public static bool SuperWallEnabled { get; private set; }
-
-        //4 seconds for 5 basic walls to reach super walls
-        private float superWallTargetTime = 4.0f;
-
-        [SerializeField]
-        private Terrain Terrain;
-
-        [SerializeField]
-        private AudioSource WallInstantiateAudio;
-
-        private Text WallsRemainedLabel;
-        private Text WallsRemainedValue;
+        [SerializeField] private AudioSource WallInstantiateAudio;
 
         public static bool WallExists { get; set; } = false;
 
@@ -54,11 +29,13 @@ namespace Assets.Scripts.WallScripts
 
         public static void WallsDecrement()
         {
-            if (SuperWallEnabled)
+            if (KuglaMovement.SuperWallsEnabled)
                 --SuperWallsRemained;
             else
                 --BasicWallsRemained;
         }
+
+        private bool SuperWallsStarted;
 
         //LEFT WALL DISTANCE CONDITION
         //((Math.Abs(LastWallPoint.z - point.z) > 1.5) || point.x - LastWallPoint.x > 3)
@@ -72,19 +49,14 @@ namespace Assets.Scripts.WallScripts
 
         private void Start()
         {
-            BasicWallsRemained = 10;
-            SuperWallEnabled = false;
-            WallsRemainedLabel = GameObject.Find(Constants.WallsRemainedLabel).GetComponent<Text>();
-            WallsRemainedValue = GameObject.Find(Constants.WallsRemainedValue).GetComponent<Text>();
-            SuperWallGoalBarHeight = SuperWallGoalBar.transform.localScale.y;
-            SuperWallGoalBar.transform.localScale -= new Vector3(0, SuperWallGoalBar.transform.localScale.y, 0);
+            SuperWallsStarted = false;
+            BasicWallsRemained = 20;
+            SuperWallsRemained = 0;
         }
 
         private void Update()
         {
-            superWallTargetTime -= Time.deltaTime;
-
-            if (BasicWallsRemained > 0 || SuperWallsRemained>0)
+            if (BasicWallsRemained > 0 || SuperWallsRemained > 0)
             {
                 if (MainMenuScript.MobileMode == 0
                     ? Input.GetMouseButtonDown(0)
@@ -110,34 +82,23 @@ namespace Assets.Scripts.WallScripts
 
                         WallsDecrement();
 
-                        Instantiate(SuperWallEnabled ? SuperWall : BasicWall, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z),
+                        Instantiate(KuglaMovement.SuperWallsEnabled ? SuperWall : BasicWall,
+                            new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z),
                             Quaternion.identity);
 
-                        AddScore(SuperWallEnabled ? 5 : 2);
+                        AddScore(KuglaMovement.SuperWallsEnabled ? 5 : 2);
 
                         WallInstantiateAudio.Play();
-                        if (!SuperWallEnabled)
-                        {
-                            SuperWallGoalBar.transform.localScale += new Vector3(0, SuperWallGoalBarHeight / 5, 0);
-                        }
 
                         LastWallPoint = hit.point;
 
-                        if (KuglaMovement.BasicBounces == 5)
-                        {
-                            if (superWallTargetTime >= 0)
-                                StartSuperWalls();
-                            else
-                            {
-                                superWallTargetTime = 5f;
-                                SuperWallGoalBar.transform.localScale -= new Vector3(0, SuperWallGoalBar.transform.localScale.y, 0);
-                            }
-                        }
+                        if (!SuperWallsStarted && KuglaMovement.SuperWallsEnabled)
+                            StartSuperWalls();
+                    }
 
-                        if (SuperWallEnabled && SuperWallsRemained == 0)
-                        {
-                            StartBasicWalls();
-                        }
+                    if (KuglaMovement.SuperWallsEnabled && SuperWallsRemained == 0)
+                    {
+                        StartBasicWalls();
                     }
                 }
             }
@@ -149,39 +110,23 @@ namespace Assets.Scripts.WallScripts
 
         private void StartSuperWalls()
         {
-            if(BasicWallsRemained==0)
-                GameManager.GameOver();
+            if (SuperWallsRemained == 0)
+                return;
 
-            SuperWallEnabled = true;
+            SuperWallsStarted = true;
             SuperWallsRemained += 5;
 
             //Add 2 new basic walls on every super wall enabling
-            BasicWallsRemained += 2;
-            WallsRemainedLabel.alignment = TextAnchor.MiddleLeft;
-            WallsRemainedValue.alignment = TextAnchor.MiddleCenter;
-            WallsRemainedValue.font.material.color = Constants.DarkGoldColor;
-            WallsRemainedLabel.font.material.color = Constants.DarkGoldColor;
-            WallsRemainedLabel.text = "Super walls:";
-
-            SuperWallGoalBarContainer.enabled = false;
-            SuperWallGoalBar.transform.localScale -= new Vector3(0, SuperWallGoalBar.transform.localScale.y, 0);
-            SuperWallStartAudio.Play();
+            BasicWallsRemained += 5;
         }
 
         private void StartBasicWalls()
         {
-            if(BasicWallsRemained==0)
+            if (BasicWallsRemained == 0)
                 GameManager.GameOver();
+            SuperWallsStarted = false;
 
-            SuperWallEnabled = false;
             SuperWallsRemained = 0;
-            superWallTargetTime = 5.0f;
-            WallsRemainedLabel.alignment = TextAnchor.MiddleCenter;
-            WallsRemainedValue.alignment = TextAnchor.MiddleLeft;
-            WallsRemainedValue.font.material.color = Constants.FineBlackColor;
-            WallsRemainedLabel.font.material.color = Constants.FineBlackColor;
-            WallsRemainedLabel.text = "Walls";
-            SuperWallGoalBarContainer.enabled = true;
         }
     }
 }
