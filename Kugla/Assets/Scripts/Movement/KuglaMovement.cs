@@ -46,7 +46,10 @@ namespace Assets.Scripts.Movement
         public static bool SuperWallsEnabled { get; private set; }
 
         //4 seconds for 5 basic walls to reach super walls
-        private float superWallTargetTime = 4.0f;
+        [SerializeField]
+        [Range(2, 5)]
+        [Tooltip("Time to reach super walls")]
+        private float SuperWallTargetTime;
 
         private float superWallTempTime;
 
@@ -104,8 +107,6 @@ namespace Assets.Scripts.Movement
             var superWallCondition = collision.collider.tag == Constants.SuperWallTag;
             if (basicWallCondition || superWallCondition)
             {
-                superWallTargetTime -= Time.deltaTime;
-
                 if (!SuperWallsEnabled)
                 {
                     SuperWallGoalBarMeter.transform.localScale += new Vector3(0, SuperWallGoalBarHeight / 5, 0);
@@ -125,12 +126,11 @@ namespace Assets.Scripts.Movement
                 {
                     if (++BasicBounces == 5)
                     {
-                        if (Time.time - superWallTempTime <= 5)
+                        if (Time.time - superWallTempTime <= SuperWallTargetTime)
                         {
                             StartSuperWalls();
                         }
                         SuperWallGoalBarMeter.transform.localScale -= new Vector3(0, SuperWallGoalBarMeter.transform.localScale.y, 0);
-                        superWallTargetTime = 4f;
                         BasicBounces = 0;
                     }
                     else if (BasicBounces == 1)
