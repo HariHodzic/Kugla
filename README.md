@@ -1,2 +1,2 @@
 # Kugla
-Kugla is mobile game created in Unity
+Kugla is endless runner mobile game created in Unity
